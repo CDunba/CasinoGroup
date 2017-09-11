@@ -1,4 +1,10 @@
-import java.util.*;   
+/***********************************************
+ * Courtney Dunbar, Talanda Williams, Tejus Nandha
+ * CST 338-30 FA 17 Homework 2
+ * Casino Group Project Assignment
+ ***********************************************/
+
+import java.util.*; 
 import java.lang.Math;
 import java.io.File;
 
