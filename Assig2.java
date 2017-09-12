@@ -5,7 +5,7 @@
  ***********************************************/
 
 import java.util.*; //Import all java utilities
-import java.lang.Math; //Import java nath library  
+import java.lang.Math; //Import java math library  
 
 public class Assig2 { //Create the main class and name it Assig2.
 	
