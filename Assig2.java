@@ -11,13 +11,32 @@ import java.io.File; //Import java IO file
 //notes - get mutators and accessors into Assig2 class, turn tabs into spaces
 
 public class Assig2 { //Create the main class and name it Assig2.
-	static Scanner user_input = new Scanner( System.in ); //Get user input by calling scanner class.
 	
     public static void main(String[] args) {
-		  int selectedBet = getBet();
-		  String selectedString = randString();		 
+		  int selectedBet = TripleString.getBet();
+		  TripleString result = TripleString.pull();
+		  String resultString = TripleString.toString(result);
+		  System.out.println(resultString);
 		}
-	  
+	  	
+}
+
+class TripleString{
+	private static String string1;
+	private static String string2;
+	private static String string3;
+	
+	public static final int MAX_LEN = 20; //Declare a final static int variable called MAX_LEN.
+	static Scanner user_input = new Scanner( System.in ); //Get user input by calling scanner class.
+
+	static final int MAX_PULLS=40;  //Declare a final static int variable called MAX_PULLS. 
+	static int pullWinnings[] = new int[MAX_PULLS];
+	static int numPulls;
+	
+	public TripleString(){
+		//empty constructor
+	}
+	
 	public static int getBet(){ //Requests bet, confirms amount
 		int bet;
 		System.out.print("Enter a bet between 0 and 100: ");
@@ -33,7 +52,7 @@ public class Assig2 { //Create the main class and name it Assig2.
 	return bet;
 	}
 	
-	public static String randString(){
+	private static String randString(){
 		  int trigger = (int) (Math.random()*1000); //Use Math.random to generate random numbers that will be used to pick the three strings. 
 		  String[] output = {"BAR", "cherries", "space", "7"}; //Define a array to store bar, cherries, space and 7.
 		  String rand;
@@ -52,25 +71,17 @@ public class Assig2 { //Create the main class and name it Assig2.
 		return rand;
 		}
 	
-}
+	public static TripleString pull(){
+		TripleString pullString = new TripleString();
+		pullString.string1 = randString();
+		pullString.string2 = randString();
+		pullString.string3 = randString();
 
-class TripleString{
-	private String string1;
-	private String string2;
-	private String string3;
+	    return pullString;
+	}
 	
-	public static final int MAX_LEN = 20; //Declare a final static int variable called MAX_LEN.
-	
-	static final int MAX_PULLS=40;  //Declare a final static int variable called MAX_PULLS. 
-	static int pullWinnings[] = new int[MAX_PULLS];
-	static int numPulls;
-	
-	TripleString(){
-		
-	}	
-	
-	public String toString(){
-		return string1 + " " + string2 + " " + string3;			
+	public static String toString(TripleString obj){ //convert from TripleString object to regular String
+		return obj.string1 + " " + obj.string2 + " " + obj.string3;			
     }
 	
 	boolean saveWinnings(int winnings){
