@@ -15,7 +15,7 @@ public class Assig2 { //Create the main class and name it Assig2.
 	
     public static void main(String[] args) {
 		  int selectedBet = getBet();
-		  //String selectedString = randString();		 
+		  String selectedString = randString();		 
 		}
 	  
 	public static int getBet(){ //Requests bet, confirms amount
@@ -26,14 +26,31 @@ public class Assig2 { //Create the main class and name it Assig2.
 		if(bet==0){ //end game
 			System.out.println("Thanks for playing!");
 		}
-		while(bet<0 || bet >100){   //Use a while loop to make sure the amount is right. 
+		while((bet<0 || bet >100) && bet !=0){   //Use a while loop to make sure the amount is right. 
 			System.out.print("Enter a bet between 0 and 100: ");
 			bet = user_input.nextInt();	
 		}			
-		System.out.println("Your betting amount is: " + bet);
-
 	return bet;
 	}
+	
+	public static String randString(){
+		  int trigger = (int) (Math.random()*1000); //Use Math.random to generate random numbers that will be used to pick the three strings. 
+		  String[] output = {"BAR", "cherries", "space", "7"}; //Define a array to store bar, cherries, space and 7.
+		  String rand;
+		  
+		  if(trigger <= 500){
+			  rand = output[0]; //BAR is 50% likely to occur
+
+		  }else if (trigger >= 501 && trigger <= 750){
+			  rand = output[1]; // Cherries is 25% likely to occur
+		  }else if (trigger >= 751 && trigger <= 875){
+			  rand = output[2]; // Space is 12.5% likely to occur
+		  }else{
+			  rand = output[3]; // 7 is 12.5% likely to occur
+		  }
+			
+		return rand;
+		}
 	
 }
 
@@ -71,12 +88,13 @@ class TripleString{
 		return display;
 	}
 	
-	boolean validString( String str ){
+	private boolean validString( String str ){
 	  if (str instanceof String) {
 		System.out.println("true");
 	    return true;
+	  }else{
+		  return false;
 	  }
-   	  return false;
 	}
 	
 	public void setString1(String string1)
@@ -94,6 +112,7 @@ class TripleString{
       this.string3=string3;
       validString(string3);
     }
+    
     //accessors
     public String setString1()
     {
@@ -109,30 +128,4 @@ class TripleString{
     }
 }
 
-/*
-	public static String randString(){
-	  int trigger = (int) (Math.random()*1000); //Use Math.random to generate random numbers that will be used to pick the three strings. 
-	  System.out.println("Trigger is " + trigger);
-	  String rand = "";
-	  
-	  String[] output = {"BAR", "cherries", "space", "7"}; //Define a array to store bar, cherries, space and 7.
-
-	  
-	  if(trigger <= 500){
-		  rand = String.join("", output[0]); //BAR is 50% likely to occur
-
-	  } 
-	  if (trigger >= 501 && trigger <= 750){
-		  rand = rand + output[1]; // Cherries is 25% likely to occur
-	  }
-	  if (trigger >= 751 && trigger <= 875){
-		  rand = rand + output[2]; // Space is 12.5% likely to occur
-	  }
-	  else{
-		  rand = rand + output[3]; // 7 is 12.5% likely to occur
-	  }
-		
-	  System.out.println("Random string is  + rand");
-	  return rand;
-	}
-*/
+	
