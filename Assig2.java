@@ -13,62 +13,30 @@ import java.io.File; //Import java IO file
 public class Assig2 { //Create the main class and name it Assig2.
 	static Scanner user_input = new Scanner( System.in ); //Get user input by calling scanner class.
 	
-	static int getBet(){
-		int bet;
-		System.out.println("Enter a bet between 0 and 100.");
-		bet = user_input.nextInt(); // Get user input on the amount they want to bet.
-		while(bet<0 || bet >100){   //Use a while loop to make sure the amount is right. 
-			System.out.println("Enter a bet between 0 and 100.");
-			bet = user_input.nextInt();	
+    public static void main(String[] args) {
+		  int selectedBet = getBet();
+		  //String selectedString = randString();		 
 		}
-		  return bet;
-	}
-	
-	static TripleString pull(){
-		TripleString t = new TripleString();
-		/*
-		 * 
-		 */
-		return t;
-	}
-	
-	static String randString(){
-	  int trigger = (int) (Math.random()*1000); //Use Math.random to generate random numbers that will be used to pick the three strings. 
-	  String rand;
-	  String output[] = new String[4];  //Define a array to store bar, cherries, space and 7.
 	  
-	  output[0]="BAR";
-	  output[1]="cherries";
-      output[0]="space";
-	  output[0]="7";
-	  
-	  if(trigger<501){
-		  rand=output[0];
-	  } 
-	  if (trigger>500 && trigger<751){
-		  rand=output[1];
-	  }
-	  if(trigger>750 && trigger<875 ){
-		  rand=output[2];
-	  }
-	  else{
-		  rand=output[3];
-	  }
+	public static int getBet(){ //Requests bet, confirms amount
+		int bet;
+		System.out.print("Enter a bet between 0 and 100: ");
+		bet = user_input.nextInt(); // Get user input on the amount they want to bet.
 		
-	  return rand;
+		if(bet==0){ //end game
+			System.out.println("Thanks for playing!");
+		}
+		while(bet<0 || bet >100){   //Use a while loop to make sure the amount is right. 
+			System.out.print("Enter a bet between 0 and 100: ");
+			bet = user_input.nextInt();	
+		}			
+		System.out.println("Your betting amount is: " + bet);
+
+	return bet;
 	}
 	
-   public static void main(String[] args) {
-	  TripleString t = new TripleString(); 
-      String a = "a"; 
-	  t.setString1(a); //test 
-	  getBet();
-	 
-	}
-  
-
-
 }
+
 class TripleString{
 	private String string1;
 	private String string2;
@@ -140,3 +108,31 @@ class TripleString{
       return string3;
     }
 }
+
+/*
+	public static String randString(){
+	  int trigger = (int) (Math.random()*1000); //Use Math.random to generate random numbers that will be used to pick the three strings. 
+	  System.out.println("Trigger is " + trigger);
+	  String rand = "";
+	  
+	  String[] output = {"BAR", "cherries", "space", "7"}; //Define a array to store bar, cherries, space and 7.
+
+	  
+	  if(trigger <= 500){
+		  rand = String.join("", output[0]); //BAR is 50% likely to occur
+
+	  } 
+	  if (trigger >= 501 && trigger <= 750){
+		  rand = rand + output[1]; // Cherries is 25% likely to occur
+	  }
+	  if (trigger >= 751 && trigger <= 875){
+		  rand = rand + output[2]; // Space is 12.5% likely to occur
+	  }
+	  else{
+		  rand = rand + output[3]; // 7 is 12.5% likely to occur
+	  }
+		
+	  System.out.println("Random string is  + rand");
+	  return rand;
+	}
+*/
