@@ -4,89 +4,115 @@
  * Casino Group Project Assignment
  ***********************************************/
 
-import java.util.*; 
-import java.lang.Math;
-import java.io.File;
+import java.util.*; //Import all java utilities
+import java.lang.Math; //Import java nath library  
 
-//notes - get mutators and accessors into Assig2 class, turn tabs into spaces
-
-public class Assig2 {
-	static Scanner user_input = new Scanner( System.in );
+public class Assig2 { //Create the main class and name it Assig2.
 	
-	static int getBet(){
-		int bet;
-		System.out.println("Enter a bet between 0 and 100.");
-		bet = user_input.nextInt();
-		while(bet<0 || bet >100){
-			System.out.println("Enter a bet between 0 and 100.");
-			bet = user_input.nextInt();	
+    public static void main(String[] args) {
+		  int selectedBet = TripleString.getBet();
+		  TripleString pullString = TripleString.pull();
+		  int amount = TripleString.getPayMultipler(pullString);
+		  TripleString.display(pullString, amount);
 		}
-		  return bet;
-	}
-	
-	static TripleString pull(){
-		TripleString t = new TripleString();
-		/*
-		 * 
-		 */
-		return t;
-	}
-	
-	static String randString(){
-	  int trigger = (int) (Math.random()*1000);
-	  String rand;
-	  String output[] = new String[4];
-	  
-	  output[0]="BAR";
-	  output[1]="cherries";
-      output[0]="space";
-	  output[0]="7";
-	  
-	  if(trigger<501){
-		  rand=output[0];
-	  } 
-	  if (trigger>500 && trigger<751){
-		  rand=output[1];
-	  }
-	  if(trigger>750 && trigger<875 ){
-		  rand=output[2];
-	  }
-	  else{
-		  rand=output[3];
-	  }
-		
-	  return rand;
-	}
-	
-   public static void main(String[] args) {
-	  TripleString t = new TripleString(); 
-      String a = "a"; 
-	  t.setString1(a); //test 
-	  getBet();
-	 
-	}
-  
-
-
+	  	
 }
+
 class TripleString{
-	private String string1;
-	private String string2;
-	private String string3;
+	private static String string1;
+	private static String string2;
+	private static String string3;
 	
-	public static final int MAX_LEN = 20;
-	
-	static final int MAX_PULLS=40;
+	public static final int MAX_LEN = 20; //Declare a final static int variable called MAX_LEN.
+	static Scanner user_input = new Scanner( System.in ); //Get user input by calling scanner class.
+
+	static final int MAX_PULLS=40;  //Declare a final static int variable called MAX_PULLS. 
 	static int pullWinnings[] = new int[MAX_PULLS];
 	static int numPulls;
 	
-	TripleString(){
-		
-	}	
+	public TripleString(){
+		//empty constructor
+	}
 	
-	public String toString(){
-		return string1 + " " + string2 + " " + string3;			
+	public static int getBet(){ //Requests bet, confirms amount
+		int bet;
+		System.out.print("Enter a bet between 0 and 100: ");
+		bet = user_input.nextInt(); // Get user input on the amount they want to bet.
+		
+		if(bet==0){ //end game
+			System.out.println("Thanks for playing!");
+		}
+		while((bet<0 || bet >100) && bet !=0){   //Use a while loop to make sure the amount is right. 
+			System.out.print("Enter a bet between 0 and 100: ");
+			bet = user_input.nextInt();	
+		}			
+	return bet;
+	}
+	
+	private static String randString(){
+		  int trigger = (int) (Math.random()*1000); //Use Math.random to generate random numbers that will be used to pick the three strings. 
+		  String[] output = {"BAR", "cherries", "space", "7"}; //Define a array to store bar, cherries, space and 7.
+		  String rand;
+		  
+		  if(trigger <= 500){
+			  rand = output[0]; //BAR is 50% likely to occur
+
+		  }else if (trigger >= 501 && trigger <= 750){
+			  rand = output[1]; // Cherries is 25% likely to occur
+		  }else if (trigger >= 751 && trigger <= 875){
+			  rand = output[2]; // Space is 12.5% likely to occur
+		  }else{
+			  rand = output[3]; // 7 is 12.5% likely to occur
+		  }
+			
+		return rand;
+		}
+	
+	public static TripleString pull(){
+		TripleString pullString = new TripleString();
+		pullString.string1 = randString();
+		pullString.string2 = randString();
+		pullString.string3 = randString();
+
+	    return pullString;
+	}
+	
+	public static String toString(TripleString obj){ //convert from TripleString object to regular String
+		return obj.string1 + " " + obj.string2 + " " + obj.string3;			
     }
+	
+	public static int getPayMultipler(TripleString thePull){
+		String temp1 = thePull.string1;
+		String temp2 = thePull.string2;
+		String temp3 = thePull.string3;
+		
+		if(temp1 == "space"){ 
+			return 0; //anything that starts with space is a lose
+		}else if(temp1 == "7" && temp2 == "7" && temp3 == "7"){
+			return 100; //only winning condition with starting 7 is all 7s
+		}else if(temp1 == "BAR" && temp2 == "BAR" && temp3 == "BAR"){
+			return 50; //only winning condition with starting BAR is all Bars
+		}else if(temp1 == "cherries" && temp2 == "cherries" && temp3 == "cherries"){
+			return 30; //all cherries option		
+		}else if(temp1 == "cherries" && temp2 == "cherries"){
+			return 15; //case of first 2 strings being cherries
+		}else if(temp1 == "cherries"){
+			return 5; //all other cherry cases covered except only in first place
+		}else{
+			return 0; //all other cases are covered so anything left is 0x
+		}
+	}
+	
+	 public static void display(TripleString thePull, int winnings){
+		  String resultString = TripleString.toString(thePull);
+		  System.out.println(resultString);
+		 
+		 if(winnings==0){
+			 System.out.println("Sorry, you lost.");
+		 }else{
+			 System.out.println("Congrats, you won $" + winnings);
+		 }
+	 }
 	
 	boolean saveWinnings(int winnings){
 		for(int i=0;i<=MAX_PULLS;i++){
@@ -103,12 +129,13 @@ class TripleString{
 		return display;
 	}
 	
-	boolean validString( String str ){
+	private boolean validString( String str ){
 	  if (str instanceof String) {
 		System.out.println("true");
 	    return true;
+	  }else{
+		  return false;
 	  }
-   	  return false;
 	}
 	
 	public void setString1(String string1)
@@ -126,6 +153,7 @@ class TripleString{
       this.string3=string3;
       validString(string3);
     }
+    
     //accessors
     public String setString1()
     {
@@ -140,3 +168,5 @@ class TripleString{
       return string3;
     }
 }
+
+	
