@@ -6,17 +6,14 @@
 
 import java.util.*; //Import all java utilities
 import java.lang.Math; //Import java nath library  
-import java.io.File; //Import java IO file 
-
-//notes - get mutators and accessors into Assig2 class, turn tabs into spaces
 
 public class Assig2 { //Create the main class and name it Assig2.
 	
     public static void main(String[] args) {
 		  int selectedBet = TripleString.getBet();
-		  TripleString result = TripleString.pull();
-		  String resultString = TripleString.toString(result);
-		  System.out.println(resultString);
+		  TripleString pullString = TripleString.pull();
+		  int amount = TripleString.getPayMultipler(pullString);
+		  TripleString.display(pullString, amount);
 		}
 	  	
 }
@@ -83,6 +80,39 @@ class TripleString{
 	public static String toString(TripleString obj){ //convert from TripleString object to regular String
 		return obj.string1 + " " + obj.string2 + " " + obj.string3;			
     }
+	
+	public static int getPayMultipler(TripleString thePull){
+		String temp1 = thePull.string1;
+		String temp2 = thePull.string2;
+		String temp3 = thePull.string3;
+		
+		if(temp1 == "space"){ 
+			return 0; //anything that starts with space is a lose
+		}else if(temp1 == "7" && temp2 == "7" && temp3 == "7"){
+			return 100; //only winning condition with starting 7 is all 7s
+		}else if(temp1 == "BAR" && temp2 == "BAR" && temp3 == "BAR"){
+			return 50; //only winning condition with starting BAR is all Bars
+		}else if(temp1 == "cherries" && temp2 == "cherries" && temp3 == "cherries"){
+			return 30; //all cherries option		
+		}else if(temp1 == "cherries" && temp2 == "cherries"){
+			return 15; //case of first 2 strings being cherries
+		}else if(temp1 == "cherries"){
+			return 5; //all other cherry cases covered except only in first place
+		}else{
+			return 0; //all other cases are covered so anything left is 0x
+		}
+	}
+	
+	 public static void display(TripleString thePull, int winnings){
+		  String resultString = TripleString.toString(thePull);
+		  System.out.println(resultString);
+		 
+		 if(winnings==0){
+			 System.out.println("Sorry, you lost.");
+		 }else{
+			 System.out.println("Congrats, you won $" + winnings);
+		 }
+	 }
 	
 	boolean saveWinnings(int winnings){
 		for(int i=0;i<=MAX_PULLS;i++){
