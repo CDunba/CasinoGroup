@@ -4,20 +4,20 @@
  * Casino Group Project Assignment
  ***********************************************/
 
-import java.util.*; 
-import java.lang.Math;
-import java.io.File;
+import java.util.*; //Import all java utilities
+import java.lang.Math; //Import java nath library  
+import java.io.File; //Import java IO file 
 
 //notes - get mutators and accessors into Assig2 class, turn tabs into spaces
 
-public class Assig2 {
-	static Scanner user_input = new Scanner( System.in );
+public class Assig2 { //Create the main class and name it Assig2.
+	static Scanner user_input = new Scanner( System.in ); //Get user input by calling scanner class.
 	
 	static int getBet(){
 		int bet;
 		System.out.println("Enter a bet between 0 and 100.");
-		bet = user_input.nextInt();
-		while(bet<0 || bet >100){
+		bet = user_input.nextInt(); // Get user input on the amount they want to bet.
+		while(bet<0 || bet >100){   //Use a while loop to make sure the amount is right. 
 			System.out.println("Enter a bet between 0 and 100.");
 			bet = user_input.nextInt();	
 		}
@@ -33,9 +33,9 @@ public class Assig2 {
 	}
 	
 	static String randString(){
-	  int trigger = (int) (Math.random()*1000);
+	  int trigger = (int) (Math.random()*1000); //Use Math.random to generate random numbers that will be used to pick the three strings. 
 	  String rand;
-	  String output[] = new String[4];
+	  String output[] = new String[4];  //Define a array to store bar, cherries, space and 7.
 	  
 	  output[0]="BAR";
 	  output[1]="cherries";
@@ -74,9 +74,9 @@ class TripleString{
 	private String string2;
 	private String string3;
 	
-	public static final int MAX_LEN = 20;
+	public static final int MAX_LEN = 20; //Declare a final static int variable called MAX_LEN.
 	
-	static final int MAX_PULLS=40;
+	static final int MAX_PULLS=40;  //Declare a final static int variable called MAX_PULLS. 
 	static int pullWinnings[] = new int[MAX_PULLS];
 	static int numPulls;
 	
