@@ -5,17 +5,19 @@
  ***********************************************/
 
 import java.util.*; //Import all java utilities
-import java.lang.Math; //Import java math library  
+import java.lang.Math; //Import java nath library  
 
 public class Assig2 { //Create the main class and name it Assig2.
 	
     public static void main(String[] args) {
-    	TripleString p = new TripleString();
-    	 p.play();
-    
-}	
-}
+		  int selectedBet = TripleString.getBet();
+		  TripleString pullString = TripleString.pull();
+		  int amount = TripleString.getPayMultipler(pullString);
+		  TripleString.display(pullString, selectedBet*amount);
+		}
 	  	
+}
+
 class TripleString{
 	private static String string1;
 	private static String string2;
@@ -32,22 +34,18 @@ class TripleString{
 		//empty constructor
 	}
 	
-	
-	
 	public static int getBet(){ //Requests bet, confirms amount
-		
-	    int bet;
+		int bet;
 		System.out.print("Enter a bet between 0 and 100: ");
 		bet = user_input.nextInt(); // Get user input on the amount they want to bet.
+		
 		if(bet==0){ //end game
 			System.out.println("Thanks for playing!");
-			System.exit(0);
 		}
-		if (bet<0 && bet >100){   //Use a while loop to make sure the amount is right. 
+		while((bet<0 || bet >100) && bet !=0){   //Use a while loop to make sure the amount is right. 
 			System.out.print("Enter a bet between 0 and 100: ");
 			bet = user_input.nextInt();	
-		}
-		
+		}			
 	return bet;
 	}
 	
@@ -69,21 +67,9 @@ class TripleString{
 			
 		return rand;
 		}
-	public void play(){
-		TripleString p = new TripleString();
-		int selectedBet = p.getBet();
-   	 		while(selectedBet!=0){
-		       TripleString pullString = p.pull();
-		       int amount = p.getPayMultipler(pullString);
-		       p.display(pullString, amount);
-		       //p.saveWinnings(1);
-		  }
-   	 		
-	}
 	
 	public static TripleString pull(){
 		TripleString pullString = new TripleString();
-		getBet();
 		pullString.string1 = randString();
 		pullString.string2 = randString();
 		pullString.string3 = randString();
@@ -117,8 +103,8 @@ class TripleString{
 		}
 	}
 	
+	
 	 public static void display(TripleString thePull, int winnings){
-		 
 		  String resultString = TripleString.toString(thePull);
 		  System.out.println(resultString);
 		 
@@ -170,15 +156,15 @@ class TripleString{
     }
     
     //accessors
-    public String getString1()
+    public String setString1()
     {
       return string1;
     }
-    public String getString2()
+    public String setString2()
     {
       return string2;
     }
-    public String getString3()
+    public String setString3()
     {
       return string3;
     }
