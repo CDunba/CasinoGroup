@@ -12,6 +12,8 @@ public class Assig2 { //Create the main class and name it Assig2.
     public static void main(String[] args) {
     	TripleString p = new TripleString();
     	 p.play();
+    	p.displayWinnings();
+    	
     
 }	
 }
@@ -24,9 +26,9 @@ class TripleString{
 	public static final int MAX_LEN = 20; //Declare a final static int variable called MAX_LEN.
 	static Scanner user_input = new Scanner( System.in ); //Get user input by calling scanner class.
 
-	static final int MAX_PULLS=40;  //Declare a final static int variable called MAX_PULLS. 
-	static int pullWinnings[] = new int[MAX_PULLS];
-	static int numPulls;
+	public static final int MAX_PULLS=40;  //Declare a final static int variable called MAX_PULLS. 
+	public static int pullWinnings[] = new int[MAX_PULLS];
+	public static int numPulls;
 	
 	public TripleString(){
 		//empty constructor
@@ -41,6 +43,7 @@ class TripleString{
 		bet = user_input.nextInt(); // Get user input on the amount they want to bet.
 		if(bet==0){ //end game
 			System.out.println("Thanks for playing!");
+			
 			System.exit(0);
 		}
 		if (bet<0 && bet >100){   //Use a while loop to make sure the amount is right. 
@@ -76,8 +79,12 @@ class TripleString{
 		       TripleString pullString = p.pull();
 		       int amount = p.getPayMultipler(pullString);
 		       p.display(pullString, amount);
-		       //p.saveWinnings(1);
+		       p.saveWinnings(selectedBet);
+		   
 		  }
+   	 		if(selectedBet==0){
+   	 			p.displayWinnings();
+   	 		}
    	 		
 	}
 	
@@ -129,8 +136,8 @@ class TripleString{
 		 }
 	 }
 	
-	boolean saveWinnings(int winnings){
-		for(int i=0;i<=MAX_PULLS;i++){
+	public boolean saveWinnings(int winnings){
+		for(int i=0;i<MAX_PULLS;i++){
 			pullWinnings[i]=winnings;
 		}
 		return true;
@@ -138,9 +145,10 @@ class TripleString{
 	
 	public String displayWinnings(){
 		String display = "Display: ";
-		for(int i=0;i<=MAX_PULLS;i++){
+		for(int i=0;i<MAX_PULLS;i++){
 			display= display + pullWinnings[i];
 		}
+		System.out.println(display);
 		return display;
 	}
 	
