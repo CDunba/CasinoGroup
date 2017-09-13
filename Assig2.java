@@ -10,7 +10,7 @@ import java.lang.Math; //Import java math library
 public class Assig2 { //Create the main class and name it Assig2.
 	
     public static void main(String[] args) {
-    	while(TripleString.numPulls < TripleString.MAX_PULLS-1){
+    	while(TripleString.numPulls < TripleString.MAX_PULLS){
   		  int selectedBet = TripleString.getBet();
   		  int win = 0;
   		  if(selectedBet != 0){ //otherwise game ends
@@ -53,7 +53,6 @@ static class TripleString{
 		}while((bet<0 || bet >100) && bet !=0);		
 		
 		if(bet==0){ //end game
-			
 			System.out.println("Thanks for playing!");
 			System.exit(0);
 		}
@@ -145,7 +144,9 @@ static class TripleString{
 		int total = 0;
 		for(int i=0;i<numPulls;i++){
 			total += pullWinnings[i];
+			System.out.println("pullWinnings["+i+"] "+pullWinnings[i]);
 		}
+		System.out.println("total "+total);
 		return (display + total);
 	}
 	
@@ -175,15 +176,15 @@ static class TripleString{
     }
     
     //accessors
-    public String getString1()
+    public String setString1()
     {
       return string1;
     }
-    public String getString2()
+    public String setString2()
     {
       return string2;
     }
-    public String getString3()
+    public String setString3()
     {
       return string3;
     }
