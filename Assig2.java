@@ -10,7 +10,7 @@ import java.lang.Math; //Import java math library
 public class Assig2 { //Create the main class and name it Assig2.
 	
     public static void main(String[] args) {
-    	while(TripleString.numPulls < TripleString.MAX_PULLS-1){
+    	while(TripleString.numPulls < TripleString.MAX_PULLS){
   		  int selectedBet = TripleString.getBet();
   		  int win = 0;
   		  if(selectedBet != 0){ //otherwise game ends
