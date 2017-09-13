@@ -5,50 +5,57 @@
  ***********************************************/
 
 import java.util.*; //Import all java utilities
-import java.lang.Math; //Import java math library  
+import java.lang.Math; //Import java math library 
 
 public class Assig2 { //Create the main class and name it Assig2.
 	
     public static void main(String[] args) {
-    	TripleString p = new TripleString();
-    	 p.play();
-    	p.displayWinnings();
-    	
-    
-}	
-}
+    	while(TripleString.numPulls < TripleString.MAX_PULLS-1){
+  		  int selectedBet = TripleString.getBet();
+  		  int win = 0;
+  		  if(selectedBet != 0){ //otherwise game ends
+  			  TripleString pullString = TripleString.pull();
+  			  int amount = TripleString.getPayMultipler(pullString);
+  			  win = selectedBet*amount;
+  			  TripleString.display(pullString, win);
+  		  }  		  
+  		  boolean saved = TripleString.saveWinnings(win);
+  		  if(saved){
+  			  System.out.println(TripleString.displayWinnings());; 
+			  }
+    	}
 	  	
-class TripleString{
-	private static String string1;
-	private static String string2;
-	private static String string3;
+}
+
+static class TripleString{
+	private String string1;
+	private String string2;
+	private String string3;
 	
 	public static final int MAX_LEN = 20; //Declare a final static int variable called MAX_LEN.
 	static Scanner user_input = new Scanner( System.in ); //Get user input by calling scanner class.
 
-	public static final int MAX_PULLS=40;  //Declare a final static int variable called MAX_PULLS. 
-	public static int pullWinnings[] = new int[MAX_PULLS];
-	public static int numPulls;
+	static final int MAX_PULLS=40;  //Declare a final static int variable called MAX_PULLS. 
+	static int pullWinnings[] = new int[MAX_PULLS];
+	static int numPulls = 0;
 	
 	public TripleString(){
 		//empty constructor
 	}
 	
-	
-	
 	public static int getBet(){ //Requests bet, confirms amount
+		int bet;
 		
-	    int bet;
-		System.out.print("Enter a bet between 0 and 100: ");
-		bet = user_input.nextInt(); // Get user input on the amount they want to bet.
-		if(bet==0){ //end game
-			System.out.println("Thanks for playing!");
-			
-			System.exit(0);
-		}
-		if (bet<0 && bet >100){   //Use a while loop to make sure the amount is right. 
+		  //Use a do-while loop to make sure the amount is right. 
+		do{
 			System.out.print("Enter a bet between 0 and 100: ");
 			bet = user_input.nextInt();	
+		}while((bet<0 || bet >100) && bet !=0);		
+		
+		if(bet==0){ //end game
+			
+			System.out.println("Thanks for playing!");
+			System.exit(0);
 		}
 		
 	return bet;
@@ -72,25 +79,9 @@ class TripleString{
 			
 		return rand;
 		}
-	public void play(){
-		TripleString p = new TripleString();
-		int selectedBet = p.getBet();
-   	 		while(selectedBet!=0){
-		       TripleString pullString = p.pull();
-		       int amount = p.getPayMultipler(pullString);
-		       p.display(pullString, amount);
-		       p.saveWinnings(selectedBet);
-		   
-		  }
-   	 		if(selectedBet==0){
-   	 			p.displayWinnings();
-   	 		}
-   	 		
-	}
 	
 	public static TripleString pull(){
 		TripleString pullString = new TripleString();
-		getBet();
 		pullString.string1 = randString();
 		pullString.string2 = randString();
 		pullString.string3 = randString();
@@ -124,32 +115,38 @@ class TripleString{
 		}
 	}
 	
+	
 	 public static void display(TripleString thePull, int winnings){
-		 
 		  String resultString = TripleString.toString(thePull);
 		  System.out.println(resultString);
 		 
 		 if(winnings==0){
 			 System.out.println("Sorry, you lost.");
+			 numPulls += 1; //either you lose and pull count goes up
 		 }else{
 			 System.out.println("Congrats, you won $" + winnings);
+			 saveWinnings(winnings);
+			 numPulls += 1; //or you win and pull count does up as well
 		 }
+		 
 	 }
 	
-	public boolean saveWinnings(int winnings){
-		for(int i=0;i<MAX_PULLS;i++){
-			pullWinnings[i]=winnings;
+	static boolean saveWinnings(int winnings){
+		if(numPulls!=0){
+			pullWinnings[numPulls] =winnings;
+			return true;
+		}else{
+			return false;
 		}
-		return true;
 	}
 	
-	public String displayWinnings(){
-		String display = "Display: ";
-		for(int i=0;i<MAX_PULLS;i++){
-			display= display + pullWinnings[i];
+	public static String displayWinnings(){
+		String display = "Display Total Winnings: $";
+		int total = 0;
+		for(int i=0;i<numPulls;i++){
+			total += pullWinnings[i];
 		}
-		System.out.println(display);
-		return display;
+		return (display + total);
 	}
 	
 	private boolean validString( String str ){
@@ -190,6 +187,7 @@ class TripleString{
     {
       return string3;
     }
+}
 }
 
 	
