@@ -53,7 +53,9 @@ static class TripleString{
 		}while((bet<0 || bet >100) && bet !=0);		
 		
 		if(bet==0){ //end game
+			
 			System.out.println("Thanks for playing!");
+			System.exit(0);
 		}
 		
 	return bet;
@@ -131,7 +133,7 @@ static class TripleString{
 	
 	static boolean saveWinnings(int winnings){
 		if(numPulls!=0){
-			pullWinnings[numPulls-1] =winnings;
+			pullWinnings[numPulls] =winnings;
 			return true;
 		}else{
 			return false;
@@ -141,7 +143,7 @@ static class TripleString{
 	public static String displayWinnings(){
 		String display = "Display Total Winnings: $";
 		int total = 0;
-		for(int i=0;i<=numPulls-1;i++){
+		for(int i=0;i<numPulls;i++){
 			total += pullWinnings[i];
 		}
 		return (display + total);
@@ -173,15 +175,15 @@ static class TripleString{
     }
     
     //accessors
-    public String setString1()
+    public String getString1()
     {
       return string1;
     }
-    public String setString2()
+    public String getString2()
     {
       return string2;
     }
-    public String setString3()
+    public String getString3()
     {
       return string3;
     }
