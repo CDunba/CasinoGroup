@@ -74,7 +74,7 @@ class TripleString{
 		int selectedBet = p.getBet();
    	 		while(selectedBet!=0){
 		       TripleString pullString = p.pull();
-		       int amount = p.getPayMultipler(pullString);
+		       int amount = p.getPayMultiplier(pullString);
 		       p.display(pullString, amount);
 		       //p.saveWinnings(1);
 		  }
@@ -95,7 +95,7 @@ class TripleString{
 		return obj.string1 + " " + obj.string2 + " " + obj.string3;			
     }
 	
-	public static int getPayMultipler(TripleString thePull){
+	public static int getPayMultiplier(TripleString thePull){
 		String temp1 = thePull.string1;
 		String temp2 = thePull.string2;
 		String temp3 = thePull.string3;
