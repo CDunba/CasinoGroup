@@ -51,9 +51,8 @@ static class TripleString{
 			bet = user_input.nextInt();	
 		}while((bet<0 || bet >100) && bet !=0);		
 		
-		if(bet==0){ //end game
-			
-			System.out.println("Thanks for playing!");
+		if(bet==0){ //end game			
+			System.out.println("\nThanks for playing!");
 			System.out.println(TripleString.displayWinnings()); 
 			System.exit(0);
 		}
@@ -91,10 +90,10 @@ static class TripleString{
 	}
 	
 	public static String toString(TripleString obj){ //convert from TripleString object to regular String
-		return obj.string1 + " " + obj.string2 + " " + obj.string3;			
+		return "Your Pull is: " + obj.string1 + " " + obj.string2 + " " + obj.string3;			
     }
 	
-	public static int getPayMultiplier(TripleString thePull){
+	public static int getPayMultipler(TripleString thePull){
 		String temp1 = thePull.string1;
 		String temp2 = thePull.string2;
 		String temp3 = thePull.string3;
@@ -122,10 +121,10 @@ static class TripleString{
 		  System.out.println(resultString);
 		 
 		 if(winnings==0){
-			 System.out.println("Sorry, you lost.");
+			 System.out.println("Sorry, you lost that one.\n");
 			 numPulls += 1; //either you lose and pull count goes up
 		 }else{
-			 System.out.println("Congrats, you won $" + winnings);
+			 System.out.println("Congrats, you won $" + winnings + "!\n");
 			 saveWinnings(winnings);
 			 numPulls += 1; //or you win and pull count does up as well
 		 }
@@ -148,8 +147,7 @@ static class TripleString{
 	}
 	
 	private boolean validString( String str ){
-	  if (str instanceof String) {
-		System.out.println("true");
+	  if (str instanceof String && str.length() < MAX_LEN) {
 	    return true;
 	  }else{
 		  return false;
