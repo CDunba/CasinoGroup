@@ -20,11 +20,10 @@ public class Assig2 { //Create the main class and name it Assig2.
   			  TripleString.display(pullString, win);
   		  }  		  
   		  boolean saved = TripleString.saveWinnings(win);
-  		  if(saved){
-  			  System.out.println(TripleString.displayWinnings());; 
-			  }
     	}
-	  	
+		 System.out.println("\nMax Pulls Reached!");
+    	 System.out.println(TripleString.displayWinnings());  
+
 }
 
 static class TripleString{
@@ -55,8 +54,10 @@ static class TripleString{
 		if(bet==0){ //end game
 			
 			System.out.println("Thanks for playing!");
+			System.out.println(TripleString.displayWinnings()); 
 			System.exit(0);
 		}
+		
 		
 	return bet;
 	}
@@ -132,21 +133,18 @@ static class TripleString{
 	 }
 	
 	static boolean saveWinnings(int winnings){
-		if(numPulls!=0){
-			pullWinnings[numPulls] =winnings;
-			return true;
-		}else{
-			return false;
-		}
+		pullWinnings[numPulls] =winnings;
+		return true;
 	}
 	
 	public static String displayWinnings(){
-		String display = "Display Total Winnings: $";
+		System.out.print("Individual Wins: ");
 		int total = 0;
 		for(int i=0;i<numPulls;i++){
 			total += pullWinnings[i];
+			System.out.print(pullWinnings[i] + " ");
 		}
-		return (display + total);
+		return ("\nTotal Amount Won: $" + total );
 	}
 	
 	private boolean validString( String str ){
